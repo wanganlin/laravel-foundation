@@ -24,9 +24,7 @@ trait HasSerializableAttributes
                 continue;
             }
 
-            $name = $property->getName();
-            // 将驼峰式命名转换为蛇形命名 (例如: startCityId -> start_city_id)
-            $key = \strtolower(\preg_replace('/(?<!^)[A-Z]/', '_$0', $name));
+            $key = $property->getName();
             
             $array[$key] = $property->getValue($this);
         }
@@ -42,6 +40,8 @@ trait HasSerializableAttributes
         $data = [];
 
         foreach ($this->toArray() as $key => $value) {
+            // 将驼峰式命名转换为蛇形命名 (例如: startCityId -> start_city_id)
+            $key = \strtolower(\preg_replace('/(?<!^)[A-Z]/', '_$0', $key));
             if ($value instanceof \BackedEnum) {
                 $data[$key] = $value->value;
             } elseif ($value instanceof \UnitEnum) {
