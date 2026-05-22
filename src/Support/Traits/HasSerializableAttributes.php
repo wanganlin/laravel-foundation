@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Juling\Foundation\Traits;
+namespace Juling\Foundation\Support\Traits;
 
 trait HasSerializableAttributes
 {
