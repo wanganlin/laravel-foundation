@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Juling\Foundation\Http\Responses;
 
-use Juling\Foundation\Traits\HasSerializableAttributes;
+use Juling\Foundation\Support\Traits\HasSerializableAttributes;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(schema: 'OptionResponse')]
