@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Juling\Foundation\Http\Responses;
 
-use Juling\Foundation\Support\DTOHelper;
+use Juling\Foundation\Traits\HasSerializableAttributes;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(schema: 'PaginateLinkVo')]
-class PaginateLinkVo
+class PaginateLinkVo implements \JsonSerializable
 {
-    use DTOHelper;
+    use HasSerializableAttributes;
 
     #[OA\Property(property: 'url', description: '链接URL', type: 'string')]
     private string $url;
