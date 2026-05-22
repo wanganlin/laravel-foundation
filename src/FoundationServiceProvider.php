@@ -11,16 +11,14 @@ class FoundationServiceProvider extends ServiceProvider
     /**
      * Bootstrap any package services.
      */
-    public function register(): void
-    {
-
-    }
+    public function register(): void {}
 
     /**
      * Bootstrap any package services.
      */
     public function boot(): void
     {
-
+        $this->loadRoutesFrom(__DIR__.'/Routers/web.php');
+        $this->loadViewsFrom(__DIR__.'/Views', '__foundation__');
     }
 }
