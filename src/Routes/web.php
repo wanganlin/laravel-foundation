@@ -23,7 +23,7 @@ Route::prefix('swagger-ui')->group(function () {
             throw new Exception('Api模块不存在');
         }
 
-        $openapi = (new Generator)->generate([$apiPath, app_path('Http\Responses')]);
+        $openapi = (new Generator)->generate([$apiPath, app_path('Http/Responses')]);
 
         return response()->json(json_decode($openapi->toJson(), true));
     });
