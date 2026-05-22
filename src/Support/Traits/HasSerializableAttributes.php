@@ -6,13 +6,6 @@ namespace Juling\Foundation\Support\Traits;
 
 trait HasSerializableAttributes
 {
-    public function __construct(array $attributes = [])
-    {
-        if (!empty($attributes)) {
-            self::from($attributes);
-        }
-    }
-
     /**
      * 将对象转换为数组
      */
@@ -20,19 +13,19 @@ trait HasSerializableAttributes
     {
         $array = [];
         $reflection = new \ReflectionClass($this);
-        
+
         foreach ($reflection->getProperties() as $property) {
             if ($property->isStatic()) {
                 continue;
             }
 
             // 避免未初始化属性触发错误
-            if (!$property->isInitialized($this)) {
+            if (! $property->isInitialized($this)) {
                 continue;
             }
 
             $key = $property->getName();
-            
+
             $array[$key] = $property->getValue($this);
         }
 
@@ -70,7 +63,7 @@ trait HasSerializableAttributes
      */
     public static function from(array $data): static
     {
-        $instance = new static();
+        $instance = new static;
 
         foreach ($data as $key => $value) {
             if ($value === null) {
@@ -81,7 +74,7 @@ trait HasSerializableAttributes
             $propertyName = \lcfirst(\str_replace(' ', '', \ucwords(\str_replace('_', ' ', $key))));
 
             // 优先通过 Setter 方法进行赋值以确保类型安全与逻辑完整
-            $setter = 'set' . ucfirst($propertyName);
+            $setter = 'set'.ucfirst($propertyName);
             if (\method_exists($instance, $setter)) {
                 $instance->$setter($value);
             } else {
@@ -128,6 +121,7 @@ trait HasSerializableAttributes
     public static function fromJson(string $json): static
     {
         $data = \json_decode($json, true);
+
         return static::from(\is_array($data) ? $data : []);
     }
 
