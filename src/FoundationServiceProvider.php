@@ -18,7 +18,9 @@ class FoundationServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
-        $this->loadViewsFrom(__DIR__.'/Views', '__foundation__');
+        if ($this->app->hasDebugModeEnabled()) {
+            $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
+            $this->loadViewsFrom(__DIR__.'/Views', '__foundation__');
+        }
     }
 }
