@@ -6,6 +6,13 @@ namespace Juling\Foundation\Traits;
 
 trait HasSerializableAttributes
 {
+    public function __construct(array $attributes = [])
+    {
+        if (!empty($attributes)) {
+            self::from($attributes);
+        }
+    }
+
     /**
      * 将对象转换为数组
      */
