@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Juling\Foundation\Http\Responses;
+namespace App\Http\Responses;
 
 use Juling\Foundation\Support\Traits\HasSerializableAttributes;
 use OpenApi\Attributes as OA;
