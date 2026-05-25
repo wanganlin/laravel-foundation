@@ -18,6 +18,10 @@ class FoundationServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->publishes([
+            __DIR__.'/../stubs/app' => base_path('app'),
+        ], 'foundation-response');
+
         if ($this->app->hasDebugModeEnabled()) {
             $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
             $this->loadViewsFrom(__DIR__.'/Views', '__foundation__');
