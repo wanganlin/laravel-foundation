@@ -28,8 +28,8 @@ class GenComposer extends Command
      */
     public function handle(): void
     {
-        $this->generate(dirname(base_path()) . '/infra', 'Juling');
-        $this->generate(dirname(base_path()) . '/client', 'Juling\\Client');
+        $this->generate(dirname(base_path()).'/infra', 'Juling');
+        $this->generate(dirname(base_path()).'/client', 'Juling\\Client');
     }
 
     private function generate(string $modulePath, string $namespace): void
@@ -41,7 +41,7 @@ class GenComposer extends Command
         ];
         $providers = [];
 
-        $composers = glob($modulePath . '/*/composer.json');
+        $composers = glob($modulePath.'/*/composer.json');
         foreach ($composers as $composer) {
             $componentDir = dirname($composer);
             $componentName = basename($componentDir);
@@ -52,37 +52,37 @@ class GenComposer extends Command
 
             // psr-4
             $autoload['psr-4'] = array_merge($autoload['psr-4'], [
-                $namespace . '\\' . $componentStudlyName . '\\' => $componentName . '/src/',
+                $namespace.'\\'.$componentStudlyName.'\\' => $componentName.'/src/',
             ]);
 
             // files
-            if (file_exists($componentDir . '/src/helpers.php')) {
-                $autoload['files'][] = $componentName . '/src/helpers.php';
+            if (file_exists($componentDir.'/src/helpers.php')) {
+                $autoload['files'][] = $componentName.'/src/helpers.php';
             }
-            if (file_exists($componentDir . '/src/Support/helpers.php')) {
-                $autoload['files'][] = $componentName . '/src/Support/helpers.php';
+            if (file_exists($componentDir.'/src/Support/helpers.php')) {
+                $autoload['files'][] = $componentName.'/src/Support/helpers.php';
             }
 
             // providers
-            $serviceProviders = glob($componentDir . '/src/*ServiceProvider.php');
+            $serviceProviders = glob($componentDir.'/src/*ServiceProvider.php');
             if (isset($serviceProviders[0])) {
                 $serviceProvider = basename($serviceProviders[0], '.php');
-                $providers[] = $namespace . '\\' . $componentStudlyName . '\\' . $serviceProvider;
+                $providers[] = $namespace.'\\'.$componentStudlyName.'\\'.$serviceProvider;
             }
         }
 
         ksort($requires);
 
-        $composerFile = $modulePath . '/composer.json';
+        $composerFile = $modulePath.'/composer.json';
         $composerOut = json_decode(file_get_contents($composerFile), true);
         $composerOut['require'] = $requires;
         $composerOut['autoload'] = $autoload;
 
-        if (!empty($providers)) {
+        if (! empty($providers)) {
             $composerOut['extra'] = [
                 'laravel' => [
                     'providers' => $providers,
-                ]
+                ],
             ];
         }
 

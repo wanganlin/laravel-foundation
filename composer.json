@@ -3,6 +3,7 @@
     "license": "Apache-2.0",
     "require": {
         "php": "^8.3",
+        "alibabacloud/aliyun-log-php-sdk": "^0.6",
         "laravel/framework": "^13.11"
     },
     "require-dev": {

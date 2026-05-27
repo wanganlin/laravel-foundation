@@ -60,7 +60,7 @@ class CategoryHelper
      */
     public function getTree(array $data, int $id = 0): array
     {
-        //数据为空，则返回
+        // 数据为空，则返回
         if (empty($data)) {
             return [];
         }
@@ -110,14 +110,14 @@ class CategoryHelper
      */
     private function searchList(int $id = 0, string $space = ''): void
     {
-        //下级分类的数组
+        // 下级分类的数组
         $childList = $this->getChild($id);
-        //如果没下级分类，结束递归
+        // 如果没下级分类，结束递归
         if (! ($n = count($childList))) {
             return;
         }
         $cnt = 1;
-        //循环所有的下级分类
+        // 循环所有的下级分类
         for ($i = 0; $i < $n; $i++) {
             $pre = '';
             $pad = '';
@@ -129,7 +129,7 @@ class CategoryHelper
             }
             $childList[$i][$this->field['full_title']] = ($space ? $space.$pre : '').$childList[$i][$this->field['title']];
             $this->formatList[] = $childList[$i];
-            //递归下一级分类
+            // 递归下一级分类
             $this->searchList($childList[$i][$this->field['id']], $space.$pad.'&nbsp;&nbsp;');
             $cnt++;
         }
