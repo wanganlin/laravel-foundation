@@ -7,6 +7,11 @@ namespace Juling\Foundation\Support\Traits;
 trait HasSerializableAttributes
 {
     /**
+     * 将构造函数设为 final，确保 new static() 安全调用
+     */
+    final public function __construct() {}
+
+    /**
      * 将对象转换为数组
      */
     public function toArray(): array
